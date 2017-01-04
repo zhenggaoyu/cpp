@@ -1,0 +1,69 @@
+在实现多态时，当用基类对象作用派生类，为使派生类的析构函数发挥作用。一般用于做基类的析构函数都使用虚函数。
+否则，会出现只析构基类不析构派生类的现象。特别在析构函数需要释放动态申请的内存空间时，若不进行此操作，会造成内存泄漏。
+
+
+如下一段代码：
+
+#include<iostream>
+using namespace std;
+//基类
+class Base
+{
+	public:
+		virtual void f(){} //虚函数		
+		~Base(){cout<<"destructor base class\n";} //不定义虚析构
+}; 
+//派生类
+class Derived : public Base
+{
+	public:
+		void f(){cout<<"Derived class\n";}
+		~Derived(){cout<<"destructor derived class\n";}
+};
+int main()
+{
+	Base *p;
+	p = new Derived;
+	p->f();
+	delete p;
+	return 0;
+}
+
+程序运行显示结果为：
+Derived	 class
+Destructor base class
+显然只调用了基类的析构函数，未调用派生类。
+
+
+若定义基类需析构函数：
+
+#include<iostream>
+using namespace std;
+//基类
+class Base
+{
+	public:
+		virtual void f(){} //虚函数		
+		virtual ~Base(){cout<<"destructor base class\n";} //虚析构
+}; 
+//派生类
+class Derived : public Base
+{
+	public:
+		void f(){cout<<"Derived class\n";}
+		~Derived(){cout<<"destructor derived class\n";}
+};
+int main()
+{
+	Base *p;
+	p = new Derived;
+	p->f();
+	delete p;
+	return 0;
+}
+
+程序运行结果为：
+Derived class
+destructor derived class
+destructor base class
+先后调用了派生类与基类析构函数
