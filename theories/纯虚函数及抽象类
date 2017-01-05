@@ -1,0 +1,30 @@
+纯虚函数：
+  virtual 函数返回类型 函数名(参数表) = 0；//即将虚函数定义为0 
+抽象类:
+  包含纯虚函数的类是抽象类，该类不能定义对象，但可声明指向该类的指针或引用。
+
+#include<iostream>
+using namespace std;
+class Pet
+{
+	public:
+		virtual void Speak() = 0;
+}; 
+
+class Cat : public Pet
+{
+	public:
+		void Speak(){cout<<"miao!miao!"<<endl;}
+}; 
+
+int main()
+{
+	Cat c;
+	Pet *p1 = &c;
+	p1->Speak();
+	return 0;
+}
+
+程序运行显示：
+miao!miao!
+
