@@ -1,0 +1,94 @@
+当类的对象需要拷贝时，会调用该类的拷贝构造函数。
+若未自定义拷贝构造函数，则编译器会自动生成默认拷贝构造函数，该默认函数实现的是浅拷贝。
+为提高源码效率，应自定义拷贝构造函数。
+类X的拷贝构造函数定义为：X(const X& copy_from_me),其中形参为该类的引用变量(&)，一般为const类型。
+
+
+如下例示范:
+
+#include<iostream>
+#include<string.h>
+using namespace std;
+class CA
+{
+	private:
+   	 	char *str;
+	public:
+  	 	CA(char* cstr)
+  	 	{
+      		str=new char[10]; //申请动态内存空间 
+      	  strcpy(str,cstr); 
+   		}
+   		CA(const CA &C) //自定义拷贝构造函数，此时实现浅拷贝 
+    	{
+    		  strcpy(str,C.str);
+   		}
+   		void Show()
+    	{
+        	cout<<str<<endl;
+    	}
+   		~CA()
+    	{
+    		  cout<<"destruct class"<<endl;
+        	delete str;
+    	}
+};
+int main()
+{
+    CA A("Hello!");
+    CA B=A;
+    B.Show();
+    return 0;
+}
+
+结果，程序运行错误。
+此时实现的是浅拷贝。即只将被拷贝对象成员的指针拷贝给拷贝对象成员，共用同一地址。若不需要申请内存，则浅拷贝也可使用。
+由于对象A的成员str已经分配了内存，当将A赋值给B时，对象B的成员str同样指向了这个内存。在析构时，当把B的内存delete了，这时A内的指针就是野指针了。
+且调用了两次析构函数～CA，使得delete了两次内存。
+
+此时，应使用深拷贝的方式。
+如下：
+
+#include<iostream>
+#include<string.h>
+using namespace std;
+class CA
+{
+	private:
+   	 	char *str;
+	public:
+  	 	CA(char* cstr)
+  	 	{
+      		str=new char[10]; //被拷贝对象str申请动态内存空间 
+      	  	strcpy(str,cstr); 
+   		}
+   		CA(const CA &C) //深拷贝 
+    	{
+    		str=new char[10]; //为拷贝对象成员str申请动态内存空间 
+    		strcpy(str,C.str);
+   		}
+   		void Show()
+    	{
+        	cout<<str<<endl;
+    	}
+   		~CA()
+    	{
+    		cout<<"destruct class"<<endl;
+        	delete str;
+    	}
+};
+
+int main()
+{
+    CA A("Hello!");
+    CA B=A;
+    B.Show();
+    return 0;
+}
+
+结果显示：
+Hello！
+destruct class
+destruct class
+此时实现的是深拷贝。即拷贝对象成员同样申请了内存空间，此时被拷贝对象A的成员str将指针传递给拷贝对象B的成员str的内存，
+在析构时，先delete对象B的str的内存，再delete对象A。
