@@ -1,0 +1,87 @@
+虚函数：
+	在函数头部加上virtual，该函数即为虚函数。
+	虚函数常用于实现类的多态性，即通过指向派生类的基类指针或定义为基类对派生类的引用，达到调用派生类对应同名虚函数的目的。
+	
+	virtual 函数返回类型 函数名(参数表)
+	{
+		函数体 
+	}
+
+如下示例(不定义虚函数时)：
+
+#include<iostream>
+using namespace std;
+class Pet
+{
+	public:
+		void Speak(){cout<<"How does a pet speak?"<<endl;} //不定义为虚函数 
+}; 
+class Dog : public Pet
+{
+	public:
+		void Speak(){cout<<"wang!wang!"<<endl;} 
+};
+
+int main()
+{
+	Dog d;  
+	
+	Pet p1; //定义Pet对象 
+	p1 = d;
+	p1.Speak(); //运行显示 How does a pet speak?
+	
+	Pet *p2 = &d; //定义Pet类对象的指针，指向Dog类对象 
+	p2->Speak(); //运行显示 How does a pet speak? 
+	
+	Pet &p3 = d; //定义Pet类为Dog类对象的引用 
+	p3.Speak(); //运行显示 How does a pet speak? 
+	
+	return 0;
+} 
+
+程序运行显示：
+How does a pet speak?
+How does a pet speak?
+How does a pet speak?
+
+显然未调用派生类的对应函数Speak()，只调用了基类的Speak()。 
+  
+再看如下示例(定义虚函数)： 
+ 
+#include<iostream>
+using namespace std;
+class Pet
+{
+	public:
+		virtual void Speak(){cout<<"How does a pet speak?"<<endl;}
+}; 
+class Dog : public Pet
+{
+	public:
+		virtual void Speak(){cout<<"wang!wang!"<<endl;} //派生类的 virtual可省略，仍为虚函数 
+};
+
+int main()
+{
+	Dog d;  
+	
+	Pet p1; //定义Pet对象 
+	p1 = d;
+	p1.Speak(); //运行显示 How does a pet speak?
+	
+	Pet *p2 = &d; //定义Pet类对象的指针，指向Dog类对象 
+	p2->Speak(); //运行显示 wang!wang! 
+	
+	Pet &p3 = d; //定义Pet类为Dog类对象的引用 
+	p3.Speak(); //运行显示 wang!wang! 
+	
+	return 0;
+} 
+
+程序运行显示：
+How does a Pet speak?
+wang!wang!
+wang!wang!
+
+当用派生类对象给基类对象赋值时，使用基类对象无法达到调用派生类对应虚函数的目的，调用的是基类的虚函数Speak()。
+此时，应定义基类的指向派生类对象的指针或定义为派生类对象的引用，才可调用派生类虚函数。
