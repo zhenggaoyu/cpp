@@ -30,10 +30,10 @@ int main()
 	p1 = d;
 	p1.Speak(); //运行显示 How does a pet speak?
 	
-	Pet *p2 = &d; //定义Pet类对象的指针，指向Dog类对象 
+	Pet *p2 = &d; //定义Pet类的指针，指向Dog类对象 
 	p2->Speak(); //运行显示 How does a pet speak? 
 	
-	Pet &p3 = d; //定义Pet类为Dog类对象的引用 
+	Pet &p3 = d; //定义Pet类为Dog类的引用 
 	p3.Speak(); //运行显示 How does a pet speak? 
 	
 	return 0;
@@ -69,10 +69,10 @@ int main()
 	p1 = d;
 	p1.Speak(); //运行显示 How does a pet speak?
 	
-	Pet *p2 = &d; //定义Pet类对象的指针，指向Dog类对象 
+	Pet *p2 = &d; //定义Pet类的指针，指向Dog类对象 
 	p2->Speak(); //运行显示 wang!wang! 
 	
-	Pet &p3 = d; //定义Pet类为Dog类对象的引用 
+	Pet &p3 = d; //定义Pet类为Dog类的引用 
 	p3.Speak(); //运行显示 wang!wang! 
 	
 	return 0;
@@ -84,4 +84,4 @@ wang!wang!
 wang!wang!
 
 当用派生类对象给基类对象赋值时，使用基类对象无法达到调用派生类对应虚函数的目的，调用的是基类的虚函数Speak()。
-此时，应定义基类的指向派生类对象的指针或定义为派生类对象的引用，才可调用派生类虚函数。
+此时，应定义基类的指向派生类的指针或定义为派生类的引用，才可调用派生类虚函数。
