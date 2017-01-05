@@ -33,7 +33,6 @@ Derived	 class
 Destructor base class
 显然只调用了基类的析构函数，未调用派生类。
 
-
 若定义基类虚析构函数：
 
 #include<iostream>
