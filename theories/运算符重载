@@ -1,0 +1,74 @@
+运算符重载：
+	 赋予运算符新的操作功能，主要用于对类的对象的操作。 
+	 可重载的运算符：绝大多数运算符都可以，算数, 关系, 逻辑, 位,下标[ ], 插入>>, 提取<<等。
+	 不能重载的运算符五个：作用域运算符"::", 成员运算符".", 指针运算符"*", 条件运算符"?:", "sizeof"。 
+	 重载可以类的成员函数（参数个数比原操作个数少一个）或友元函数。 
+	 定义格式同函数：
+	  
+	 返回类型 类名::operator 运算符（参数表）
+	 {
+	 	函数体
+	 }
+
+如下例("+"运算符重载)： 
+
+#include<iostream>
+using namespace std;
+class CA
+{
+	private:
+		int num1, num2;
+	public:
+		CA(int x = 0,int y = 0):num1(x), num2(y){}
+		int Getnum1() //取num1函数 
+		{
+			return num1;
+		}
+		int Getnum2() //取num2函数 
+		{
+			return num2;
+		}
+		CA operator +(CA &C) //对象间相加，返回类型为此类，参数定义为类的引用 
+		{
+			CA temp; //定义对象temp 
+			temp.num1 = C.num1 + this->num1; //将C和本类的num1赋值给对象temp 
+			temp.num2 = C.num2 + this->num2; //将C和本类的num2同样赋值给对象temp
+			return temp; //返回temp 
+		} 
+		CA operator +(int a) //对象与整数相加 
+		{
+			num1 = num1 + a; //num1加a
+			return *this; //返回本类
+		} 		 
+}; 
+
+int main()
+{
+	CA c1(1,2),c2(3,4),c3; 
+	cout<<"c1 = "<<c1.Getnum1()<<" + j"<<c1.Getnum2()<<endl; //输出c1 
+	cout<<"c2 = "<<c2.Getnum1()<<" + j"<<c2.Getnum2()<<endl; //输出c2 
+	c3 = c1 + c2; //调用"对象+对象"
+	cout<<"c3 = c1 + c2 = "<<c3.Getnum1()<<" + j"<<c3.Getnum2()<<endl; //输出c3=c1+c2
+	c3 = c3 + 2; //调用"对象+int"	
+  cout<<"c3 = c3 + 2 = "<<c3.Getnum1()<<" + j"<<c3.Getnum2()<<endl; //输出c3+2 
+	return 0;
+} 
+
+程序运行显示：
+c1 = 1 + j2
+c2 = 3 + j4
+c3 = c1 + c2 = 4 + j6
+c3 = c3 + 2 = 6 + j6 
+
+对于单目运算符：
+	 定义为(参考)：
+	  
+	 返回类型 类名::operator ++() //前置++重载，无参数 
+	 {
+	 	函数体
+	 }
+	 
+	 返回类型 类名::operator ++(int) //后置++重载，参数固定为int 
+	 {
+	 	函数体
+	 }
