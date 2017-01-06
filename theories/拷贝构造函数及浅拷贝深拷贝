@@ -59,13 +59,13 @@ class CA
 	public:
   	 	CA(char* cstr)
   	 	{
-      		str=new char[10]; //被拷贝对象str申请动态内存空间 
-      	  	strcpy(str,cstr); 
+      		 str=new char[10]; //被拷贝对象str申请动态内存空间 
+      	 	 strcpy(str,cstr); 
    		}
    		CA(const CA &C) //深拷贝 
     	{
-    		str=new char[10]; //为拷贝对象成员str申请动态内存空间 
-    		strcpy(str,C.str);
+    		  str=new char[10]; //为拷贝对象成员str申请动态内存空间 
+    		  strcpy(str,C.str);
    		}
    		void Show()
     	{
@@ -73,7 +73,7 @@ class CA
     	}
    		~CA()
     	{
-    		cout<<"destruct class"<<endl;
+    			cout<<"destruct class"<<endl;
         	delete str;
     	}
 };
