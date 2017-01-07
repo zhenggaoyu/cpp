@@ -1,0 +1,109 @@
+矩阵类设计：
+	利用类实现矩阵的输入，输出，赋值，相加(+运算符重载)。 
+
+#include<iostream>
+using namespace std;
+class Matrix
+{
+	private:
+		int n; //行  
+		int m; //列 
+		int *ma; //定义为一维数组，将矩阵看作一维来操作 
+	public:
+		Matrix(int x=0, int y=0):m(x), n(y){ma = new int[n*m];} 
+		Matrix(const Matrix &matrix) //拷贝构造函数，深拷贝 
+		{
+			n = matrix.n;
+			m = matrix.m;
+			ma = new int[n*m];
+			for(int i=0; i<m*n; i++)
+			{
+				ma[i] = matrix.ma[i];
+			}
+			cout<<"调用拷贝构造"<<endl;
+		} 
+		void input() //输入矩阵元素 
+		{
+			for(int i=0; i<m*n; i++)
+			{
+				cin>>ma[i];
+			}
+		}
+		void output() //输出矩阵元素 
+		{
+			
+			for(int j=0; j<m*n; j++)
+			{
+				cout<<ma[j];
+				if ((j+1)%m==1) //隔以空格输出，行末不留空格 
+				{
+					cout<<' ';
+				}
+				if ((j+1)%m==0) //按行输出 
+				{
+					cout<<endl;
+				}
+			} 			
+		}
+		Matrix operator +(const Matrix &M) //矩阵间相加，+运算符重载 
+		{
+			Matrix temp ;
+			temp.n = M.n;
+			temp.m = M.m;
+			temp.ma = new int[n*m]; //为temp申请内存空间 
+			for(int i=0; i<m*n; i++)
+			{
+				temp.ma[i] = M.ma[i] + ma[i];
+			}
+			return temp; //这里由于NRVO，编译器不调用拷贝构造函数 
+		}
+		~Matrix()
+		{
+			delete []ma;
+		} 
+}; 
+
+int main()
+{
+	Matrix A(2,3), B(2,3);
+	cout<<"输入矩阵A:"<<endl;
+	A.input();
+	cout<<"输入矩阵B:"<<endl; 
+	B.input();
+	cout<<"输出矩阵A:"<<endl;
+	A.output();
+	cout<<"输出矩阵B:"<<endl;
+	B.output();
+	cout<<"输出矩阵C=A:"<<endl; 
+	Matrix C = A; //A赋值给C，调用拷贝构造函数 
+	C.output(); 
+	cout<<"矩阵D = A + B:"<<endl;
+	Matrix D = A + B; //调用+运算符 
+	D.output(); 
+	return 0;
+} 
+程序运行显示： 
+输入矩阵A:
+1 2 3 4 5 6
+输入矩阵B:
+6 5 4 3 2 1
+输出矩阵A:
+1 2
+3 4
+5 6
+输出矩阵B:
+6 5
+4 3
+2 1
+输出矩阵C=A:
+调用拷贝构造 
+1 2 
+3 4
+5 6
+矩阵D = A + B:
+7 7
+7 7
+7 7
+
+其中输入部分为手动输入。 
+ 
