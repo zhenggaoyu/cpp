@@ -1,8 +1,4 @@
-当类的对象需要拷贝时，会调用该类的拷贝构造函数。
 若未自定义拷贝构造函数，则编译器会自动生成默认拷贝构造函数，该默认函数实现的是浅拷贝。
-为提高源码效率，应自定义拷贝构造函数。
-类X的拷贝构造函数定义为：X(const X& copy_from_me),其中形参为该类的引用变量(&)，一般为const类型。
-
 
 如下例示范:
 
@@ -17,11 +13,11 @@ class CA
   	 	CA(char* cstr)
   	 	{
       		str=new char[10]; //申请动态内存空间 
-      	  strcpy(str,cstr); 
+      	 	strcpy(str,cstr); 
    		}
    		CA(const CA &C) //自定义拷贝构造函数，此时实现浅拷贝 
     	{
-    		  strcpy(str,C.str);
+    		strcpy(str,C.str);
    		}
    		void Show()
     	{
@@ -29,8 +25,8 @@ class CA
     	}
    		~CA()
     	{
-    		  cout<<"destruct class"<<endl;
-        	delete str;
+    		 cout<<"destruct class"<<endl;
+        	 delete str;
     	}
 };
 int main()
@@ -64,17 +60,17 @@ class CA
    		}
    		CA(const CA &C) //深拷贝 
     	{
-    		  str=new char[10]; //为拷贝对象成员str申请动态内存空间 
-    		  strcpy(str,C.str);
+    		 str=new char[10]; //为拷贝对象成员str申请动态内存空间 
+    		 strcpy(str,C.str);
    		}
    		void Show()
     	{
-        	cout<<str<<endl;
+        	 cout<<str<<endl;
     	}
    		~CA()
     	{
-    			cout<<"destruct class"<<endl;
-        	delete str;
+    		 cout<<"destruct class"<<endl;
+        	 delete str;
     	}
 };
 
