@@ -1,0 +1,77 @@
+1.动态申请单个变量：
+	指针类型 变量 = new 类型;
+	delete 指针变量; 
+如下例：
+#include<iostream>
+using namespace std;
+int main()
+{
+	 
+    int *var=new int;  //申请变量 
+    *var = 1 ;        //或int *var = new int(1);
+    
+    cout<<*var<<endl;
+    delete var; //释放 
+    return 0;
+} 
+
+2.动态申请一维数组：
+	指针类型 变量 = new 类型[元素个数];
+	delete []指针变量; 
+	元素个数可以是常量\变量\表达式。若元素个数未知时，也用于定义该数组。 
+如下例： 
+#include<iostream>
+using namespace std;
+int main()
+{
+	int n;
+    int *arr=new int[n];  //申请存放有n个整数的数组 
+    if(arr == NULL) //判断申请是否失败，如果申请失败，返回的为空指针，即值NULL 
+	{
+		cout<<"申请失败!";
+		return 1;
+	} 
+    n = 2;
+	arr[1] = 1 ;        
+    cout<<arr[1]<<endl;
+    delete []arr; //释放 
+    return 0;
+} 
+
+3.动态申请二维数组： 
+     行列数未知也可。
+  	 指针的指针类型  变量 = new 类型*[行数]; 
+  	 for (int i=0; i<行数; i++)
+  	 {
+  	 	变量[i] = new int[列数] 
+ 	 }
+ 	 
+	 for (int i=0; i<行数; i++)
+  	 {
+  	 	delete []变量[i];
+	 }
+	 delete []变量;
+	
+如下例：
+#include<iostream>
+using namespace std;
+int main()
+{
+	int n=2, m=3;
+	//申请
+	int **arr = new int*[n];
+	for(int i=0;i<n;i++)
+	{
+		arr[i]=new int[m];
+	}
+	arr[1][2]=1;
+	cout<<arr[1][2]<<endl;
+	//释放 
+	for(int i=0;i<n;i++)
+	{
+		delete []arr[i];
+	}
+	delete []arr;
+	
+	return 0;
+};
