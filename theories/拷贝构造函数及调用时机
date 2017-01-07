@@ -1,0 +1,116 @@
+当类的对象需要拷贝时，会调用该类的拷贝构造函数。
+若未自定义拷贝构造函数，则编译器会自动生成默认拷贝构造函数，该默认函数实现的是浅拷贝。
+为提高源码效率，应自定义拷贝构造函数。
+类X的拷贝构造函数定义为：X(const X& copy_from_me),其中形参为该类的引用变量(&)，一般为const类型。
+
+调用时机：
+    1.对象以值传递的方式传入函数参数 
+    void fun(X A){}
+    
+    2.对象以值传递的方式从函数返回
+    X fun()
+    {
+        X A
+        return A; 
+    }
+    
+    3.对象需要通过另外一个对象进行初始化
+    X A(a), B; 
+    B=A; //B(A);
+    
+例1.(对象以值传递的方式传入函数参数)
+#include<iostream>
+using namespace std;
+class X //定义类X
+{
+	private:
+		int a;
+	public:
+		X(int b = 0):a(b){}
+		X(const X &x) //拷贝构造函数 
+		{
+			a = x.a;
+			cout<<"调用拷贝构造"<<endl;
+		} 
+		void show()
+		{
+			cout<<"a*a="<<a*a<<endl;
+		}
+}; 
+void fun(X A) //定义函数fun, 参数为类X对象A，调用了拷贝构造函数 
+{
+	A.show();
+}
+int main()
+{
+	X A(2);
+	fun(A);
+	return 0;
+}
+程序运行显示：
+调用拷贝构造
+a*a=4
+
+例2.(对象以值传递的方式从函数返回)
+#include<iostream>
+using namespace std;
+class X
+{
+	private:
+		int a;
+	public:
+		X(int b = 0):a(b){}
+		X(const X &x) //拷贝构造函数 
+		{
+			a = x.a;
+			cout<<"调用拷贝构造"<<endl;
+		} 
+		void show()
+		{
+			cout<<"a*a="<<a*a<<endl;
+		}
+}; 
+X fun() //定义函数fun，返回类型为类X 
+{
+	return X(2); //调用拷贝构造函数 
+}
+int main()
+{
+	fun().show();
+	return 0;
+}
+程序运行显示：
+a*a=4
+似乎未调用拷贝构造函数，事实上这是编译器的返回值优化RVO(return value optimization)，即将函数返回时产生的临时对象消除，
+以达到不调用拷贝构造函数的目的。 
+
+例3.(对象通过另外一个对象进行初始化)
+#include<iostream> 
+using namespace std;
+class X //定义类X
+{
+	private:
+		int a;
+	public:
+		X(int b = 0):a(b){}
+		X(const X &x) //拷贝构造函数 
+		{
+			a = x.a;
+			cout<<"调用拷贝构造"<<endl;
+		} 
+		void show()
+		{
+			cout<<"a*a="<<a*a<<endl;
+		}
+}; 
+
+int main()
+{
+	X A(2);
+	X B=A; //调用拷贝构造函数 
+	B.show();
+	return 0;
+}
+程序运行显示：
+调用拷贝构造
+a*a=4 
