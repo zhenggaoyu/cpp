@@ -1,7 +1,6 @@
 若未自定义拷贝构造函数，则编译器会自动生成默认拷贝构造函数，该默认函数实现的是浅拷贝。
 
 如下例示范:
-
 #include<iostream>
 #include<string.h>
 using namespace std;
@@ -32,11 +31,10 @@ class CA
 int main()
 {
     CA A("Hello!");
-    CA B=A;
+    CA B=A; //调用拷贝构造函数
     B.Show();
     return 0;
 }
-
 结果，程序运行错误。
 此时实现的是浅拷贝。即只将被拷贝对象成员的指针拷贝给拷贝对象成员，共用同一地址。若不需要申请内存，则浅拷贝也可使用。
 由于对象A的成员str已经分配了内存，当将A赋值给B时，对象B的成员str同样指向了这个内存。在析构时，当把B的内存delete了，这时A内的指针就是野指针了。
@@ -44,7 +42,6 @@ int main()
 
 此时，应使用深拷贝的方式。
 如下：
-
 #include<iostream>
 #include<string.h>
 using namespace std;
@@ -77,7 +74,7 @@ class CA
 int main()
 {
     CA A("Hello!");
-    CA B=A;
+    CA B=A; //调用拷贝构造函数
     B.Show();
     return 0;
 }
