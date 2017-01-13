@@ -1,0 +1,88 @@
+流：
+    指从一个位置向另一个位置传输的数据的集合。
+
+标准输入流：
+    从标准输入设备(键盘)流向程序的数据集合。标准输入流类：istream(输入),iostream(包括输入输出)。
+    使用的对象：cin
+    使用的函数：
+    1.>> //输入字符，符号重载，以空格和回车作为分隔符
+   
+    2.get //输入字符，包括空格
+        cin.get()
+        如例：
+        #include<iostream>
+        using namespace std;
+        int main()
+        {
+	        char a;
+	        a = cin.get(); //相当于cin.get(a);	
+            cout<<a<<endl;
+	        return 0;
+        } 
+        程序运行显示：
+        s
+        s
+        //s为手动输入。
+        
+        cin.get(char 一个字符)
+        如：
+        #include<iostream>
+        using namespace std;
+        int main()
+        {
+	        char a;
+	        cin.get(a);
+    	    cout<<a<<endl;
+	        return 0;
+        } 
+        程序运行结果：
+        s
+        s
+        //s为手动输入。
+        
+        cin.get(char 多个字符,int 指定字符数,char 读至此字符结束且不读此字符) 
+        //将读取指定字符数-1个字符或至指定字符处字符，将流指针放读完后第1个字符
+        如：
+        #include<iostream>
+        using namespace std;
+        int main()
+        {
+	        char a[10];
+	        cin.get(a,5,'i');
+	        cout<<a<<endl;
+            cin.get(a,7);	
+            cout<<a<<endl;
+            return 0;
+        } 
+        程序运行显示：
+        abcdefghij
+        abcd
+        efghij
+        //abcdefghij为手动输入。
+        
+    ???????????????3.getline //输入字符，包括空格
+        cin.getline(char 多个字符,int 指定字符数,char 读至此字符结束且不读此字符) 
+        //将读取至指定字符数-1个字符或指定字符处字符，将流指针放读完后第2个字符，第1个字符被舍弃
+        如例：
+        #include<iostream>
+        using namespace std;
+        int main()
+        {
+	        char a[10];
+	        cin.getline(a,5,'i');
+	        cout<<a<<endl;
+            cin.getline(a,7)
+            return 0;
+        } 
+        程序运行显示：
+        abcdefghij
+        abcd
+        fghij
+        //abcdefghij为手动输入。
+        
+    4.read //输入字节
+    5.ignore //丢弃流中指定位置的字符
+    6.peek //返回下一个字符
+    7.gcount //统计输入字符个数
+    8.seekg //移动输入流指针
+    9.tellg //返回流中指定位置指针值
