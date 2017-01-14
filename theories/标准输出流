@@ -48,23 +48,23 @@
         在以fixed形式和scientific形式输出时代表小数点后小数位数
     11.fill //填充域中空余位置
         cout.fill(char 用于填充的字符)
-        如例：
+    如例：
         #include<iostream>
         using namespace std;
         int main()
         {
-	        cout.precision(4);
+	        cout.precision(4); //设置精度4位有效数字	
 	        cout<<123.456<<endl; //输出123.5 四舍五入 
 	
-	        cout.precision(5);
-	        cout.setf(ios::fixed);
+	        cout.precision(5); 
+	        cout.setf(ios::fixed); //设置小数点后有效数字5位	
 	        cout<<123.456<<endl; //输出123.45600 小数点后4位有效数字 
 	    
 	        cout.precision(4);
-	        cout.unsetf(ios::fixed);
-	        cout.width(10);
-	        cout.fill('*');
-	        cout<<123.456; //输出*****123.5 填充* 
+	        cout.unsetf(ios::fixed); //清除小数点后有效数字	
+	        cout.width(10); //域宽10	
+	        cout.fill('*'); //填充*	
+	        cout<<123.456; //输出*****123.5 
 	
 	        return 0;
         } 
@@ -93,7 +93,7 @@
        cout<<setiosflags(状态标志)
     9.resetiosflags //清除状态标志
        cout<<resetiosflags(状态标志)
-        如例：
+    如例：
         #include<iostream>
         #include<iomanip> //需要加此头文件 
         using namespace std;
