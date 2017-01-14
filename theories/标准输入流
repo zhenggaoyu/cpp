@@ -5,9 +5,9 @@
     从标准输入设备(键盘)流向程序的数据集合。标准输入流类：istream(输入),iostream(包括输入输出)。
     使用的对象：cin
     使用的函数：
-    1.>> //输入字符，符号重载，以空格和回车作为分隔符
+    1.>> //从流中提取字符，符号重载，以空格和回车作为分隔符
    
-    2.get //输入字符，包括空格
+    2.get //提取字符，包括空格，返回值为非0值，若遇到文件结束符，返回0值即flase
         cin.get()
         如例：
         #include<iostream>
@@ -16,7 +16,7 @@
         {
 	        char a;
 	        a = cin.get(); //相当于cin.get(a);	
-            cout<<a<<endl;
+            cout<<a;
 	        return 0;
         } 
         程序运行显示：
@@ -24,7 +24,7 @@
         s
         //s为手动输入。
         
-        cin.get(char 一个字符)
+        cin.get(char 字符)
         如：
         #include<iostream>
         using namespace std;
@@ -32,7 +32,7 @@
         {
 	        char a;
 	        cin.get(a);
-    	    cout<<a<<endl;
+    	    cout<<a;
 	        return 0;
         } 
         程序运行结果：
@@ -40,8 +40,8 @@
         s
         //s为手动输入。
         
-        cin.get(char 多个字符,int 指定字符数,char 读至此字符结束且不读此字符) 
-        //将读取指定字符数-1个字符或至指定字符处字符，将流指针放读完后第1个字符
+        cin.get(char 多个字符, int 指定字符数, char 读至此字符结束且不读此字符) 
+        //将读取指定字符数-1个字符或至指定字符处字符(因为末尾需要返回'\0'作为结束符)，将流指针放结束字符，下次以此开始读取。
         如：
         #include<iostream>
         using namespace std;
@@ -51,7 +51,7 @@
 	        cin.get(a,5,'i');
 	        cout<<a<<endl;
             cin.get(a,7);	
-            cout<<a<<endl;
+            cout<<a;
             return 0;
         } 
         程序运行显示：
@@ -60,29 +60,121 @@
         efghij
         //abcdefghij为手动输入。
         
-    ???????????????3.getline //输入字符，包括空格
-        cin.getline(char 多个字符,int 指定字符数,char 读至此字符结束且不读此字符) 
-        //将读取至指定字符数-1个字符或指定字符处字符，将流指针放读完后第2个字符，第1个字符被舍弃
+    3.getline //提取字符，包括空格，返回值为非0值，若遇到文件结束符，返回0值即flase
+        cin.getline(char 字符指针, int 指定字符数, char 读至此字符结束且不读此字符) 
+        //将读取至指定字符数-1个字符或指定字符处字符(因为末尾需要返回'\0'作为结束符)，将流指针放结束字符后一个字符，结束字符被舍弃。
+		//当输入超长时，会引起cin函数的错误，后面的cin操作将不再执行。
         如例：
         #include<iostream>
-        using namespace std;
-        int main()
-        {
-	        char a[10];
-	        cin.getline(a,5,'i');
-	        cout<<a<<endl;
-            cin.getline(a,7)
-            return 0;
-        } 
+		using namespace std;
+		int main()
+		{
+			char a[10];
+			cin.getline(a,5,'c');
+			cout<<a<<endl;
+   			cin.getline(a,10); 
+   			cout<<a;
+    		return 0;
+		} 
+        程序运行显示：
+        abcdefghij
+        ab
+		defghij
+        //abcdefghij为手动输入。
+	    又如：
+		#include<iostream>
+		using namespace std;
+		int main()
+		{
+			char a[10];
+			cin.getline(a,5,'f');
+			cout<<a<<endl;
+   			cin.getline(a,10); //未读取fghij
+   			cout<<a;
+    		return 0;
+		} 
         程序运行显示：
         abcdefghij
         abcd
-        fghij
-        //abcdefghij为手动输入。
+		
+        //abcdefghij为手动输入。之所以未读取并输出abcd后的字符，正是因为当输入超长时，会引起cin函数的错误，后面的cin操作将不再执行。
+		  而函数cin.get()可以读取。
         
-    4.read //输入字节
+    4.read //提取字节
+		cin.read(char 字符指针, int 需提取字节数)
+		如例：				
+		#include<iostream>
+		using namespace std;
+		int main()
+		{
+			char a[10];
+			cin.read(a,5);
+			cout<<a<<endl;
+   			return 0;
+		}
+		程序运行显示：
+		abcdefghij
+        abcde
+		//abcdefghij为手动输入
+		
     5.ignore //丢弃流中指定位置的字符
+		cin.ignore(需丢弃字符数)		
+		如例：		
+		#include<iostream>
+		using namespace std;
+		int main()
+		{
+			char a[10];
+			cin.get(a,5);
+			cout<<a<<endl;
+			cin.ignore(1); //丢弃一个字符			
+			cin.get(a,7);
+			cout<<a<<endl;
+			return 0;
+		} 
+		程序运行显示：
+		abcdefghij
+		abcd
+		fghij
+		//abcdefghij为手动输入，丢弃了字符e
+		
     6.peek //返回下一个字符
+		cin.peek()
+		如例：
+		#include<iostream>
+		using namespace std;
+		int main()
+		{
+			char a[10];
+			cin.get(a,5);
+			cout<<a<<endl;
+			char b = cin.peek(); //提取字符e			
+			cout<<b;
+			return 0;
+		} 
+		程序运行显示：
+		abcdefghij
+		abcd
+		e
+		
     7.gcount //统计输入字符个数
+		cin.gcount()
+		如例：
+		#include<iostream>
+		using namespace std;
+		int main()
+		{
+			char a[10];
+			cin.get(a,5);
+			cout<<a<<endl;
+			cout<<cin.gcount(); 
+			return 0;
+		} 
+		程序运行显示：
+		abcdefghij
+		abcd
+		4
+		 
     8.seekg //移动输入流指针
     9.tellg //返回流中指定位置指针值
+	...
