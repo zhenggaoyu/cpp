@@ -1,0 +1,131 @@
+标准输出流：
+    指从程序流向标准输出设备(显示器)的数据集合。
+    使用的对象：cout, cerr, clog（cerr, clog为标准错误输出流对象，可用于输出错误信息）
+    使用的函数：
+    1.<< //流插入运算符，符号重载，并输出数据
+    
+    2.put //插入一个字符
+        cout.put(char 需插入的字符)
+        如例：
+        #include<iostream>
+        using namespace std;
+        int main()
+        {
+	        cout.put('a');
+	        return 0;
+        } 
+        程序运行显示:
+        a
+        a
+        
+    3.write //插入一串字符 
+        cout.write(char 字符指针, int 字符数)
+        如例：
+        #include<iostream>
+        using namespace std;
+        int main()
+        {
+        	char a[5]="abcd";
+	        cout.write(a,2);
+	        return 0;
+        } 
+        程序运行显示：
+        ab
+    4.flush //刷新输出流
+    5.seekp //移动输出流指针
+    6.tellp //返回输出流中指定位置指针值
+    
+    控制输出格式： 
+    A.以流对象的成员函数控制输出格式
+    7.setf //设置状态标志
+        cout.setf(ios::状态标志)
+    8.unsetf //清除状态标志
+        cout.unsetf(ios::状态标志)
+    9.width //设置域宽
+        cout.width(int 域宽值)
+    10.precision //设置实数的精度
+        cout.precious(int n) //n是整数，在以十进制小数形式输出时代表有效数位。
+        在以fixed形式和scientific形式输出时代表小数点后小数位数
+    11.fill //填充域中空余位置
+        cout.fill(char 用于填充的字符)
+        如例：
+        #include<iostream>
+        using namespace std;
+        int main()
+        {
+	        cout.precision(4);
+	        cout<<123.456<<endl; //输出123.5 四舍五入 
+	
+	        cout.precision(5);
+	        cout.setf(ios::fixed);
+	        cout<<123.456<<endl; //输出123.45600 小数点后4位有效数字 
+	    
+	        cout.precision(4);
+	        cout.unsetf(ios::fixed);
+	        cout.width(10);
+	        cout.fill('*');
+	        cout<<123.456; //输出*****123.5 填充* 
+	
+	        return 0;
+        } 
+        程序运行显示：
+        123.5
+        123.45600
+        *****123.5
+        
+    B.以流格式控制符控制输出格式 //需加头文件#include<iomanip>
+    多数与成员函数一样有相同作用，一般与<<联用。
+    1.dec //十进制 
+        cout<<dec
+    2.oct //八进制 
+        cout<<oct
+    3.hex //十六进制
+        cout<<hex
+    4.endl //换行
+        cout<<endl
+    5.setfill //填充域中空白
+       cout<<setfill(char 填充字符)
+    6.setprecision //设置实数精度
+       cout<<setprecision(int n)
+    7.setw //域宽
+       cout<<setw(int 域宽值)
+    8.setiosflags //设置状态标志
+       cout<<setiosflags(状态标志)
+    9.resetiosflags //清除状态标志
+       cout<<resetiosflags(状态标志)
+        如例：
+        #include<iostream>
+        #include<iomanip> //需要加此头文件 
+        using namespace std;
+        int main()
+        {
+	        cout<<setprecision(4);
+	        cout<<123.456<<endl; //输出123.5 四舍五入 
+	
+	        cout<<setprecision(5);
+	        cout<<setiosflags(ios::fixed);
+	        cout<<123.456<<endl; //输出123.45600 小数点后4位有效数字 
+	
+	        cout<<setprecision(4);
+	        cout<<resetiosflags(ios::fixed);
+	        cout<<setw(10);
+	        cout<<setfill('*');
+	        cout<<123.456; //输出*****123.5 填充* 
+	
+	        return 0;
+        } 
+        程序运行显示：
+        123.5
+        123.45600
+        *****123.5
+        
+    ios类的常用的状态标志：
+        left //输出数据在域内左对齐
+        right //输出数据在域内右对齐
+        showpoint //浮点输出时，强制显示小数点   
+        uppercase //以科学计数法格式输出的e和十六进制格式输出的字母大写
+        lowercase //以科学计数法格式输出的e和十六进制格式输出的字母小写
+        showpos //显示正号
+        scientific //科学计数法显示
+        fixed //固定小数位数
+     在引用时需加上ios::，若有多项中间以"|"分隔。
