@@ -16,7 +16,7 @@
         {
 	        char a;
 	        a = cin.get(); //相当于cin.get(a);	
-            cout<<a;
+            	cout<<a;
 	        return 0;
         } 
         程序运行显示：
@@ -32,7 +32,7 @@
         {
 	        char a;
 	        cin.get(a);
-    	    cout<<a;
+    	   	cout<<a;
 	        return 0;
         } 
         程序运行结果：
@@ -50,9 +50,9 @@
 	        char a[10];
 	        cin.get(a,5,'i');
 	        cout<<a<<endl;
-            cin.get(a,7);	
-            cout<<a;
-            return 0;
+            	cin.get(a,7);	
+            	cout<<a;
+            	return 0;
         } 
         程序运行显示：
         abcdefghij
@@ -66,39 +66,39 @@
 		//当输入超长时，会引起cin函数的错误，后面的cin操作将不再执行。
         如例：
         #include<iostream>
-		using namespace std;
-		int main()
-		{
-			char a[10];
-			cin.getline(a,5,'c');
-			cout<<a<<endl;
-   			cin.getline(a,10); 
-   			cout<<a;
+	using namespace std;
+	int main()
+	{
+		char a[10];
+		cin.getline(a,5,'c');
+		cout<<a<<endl;
+   		cin.getline(a,10); 
+   		cout<<a;
     		return 0;
-		} 
+	} 
         程序运行显示：
         abcdefghij
         ab
-		defghij
+	defghij
         //abcdefghij为手动输入。
-	    又如：
-		#include<iostream>
-		using namespace std;
-		int main()
-		{
-			char a[10];
-			cin.getline(a,5,'f');
-			cout<<a<<endl;
-   			cin.getline(a,10); //未读取fghij
-   			cout<<a;
+	又如：
+	#include<iostream>
+	using namespace std;
+	int main()
+	{
+		char a[10];
+		cin.getline(a,5,'f');
+		cout<<a<<endl;
+   		cin.getline(a,10); //未读取fghij
+   		cout<<a;
     		return 0;
-		} 
+	} 
         程序运行显示：
         abcdefghij
         abcd
 		
         //abcdefghij为手动输入。之所以未读取并输出abcd后的字符，正是因为当输入超长时，会引起cin函数的错误，后面的cin操作将不再执行。
-		  而函数cin.get()可以读取。
+	而函数cin.get()可以读取。
         
     4.read //提取字节
 		cin.read(char 字符指针, int 需提取字节数)
@@ -114,7 +114,7 @@
 		}
 		程序运行显示：
 		abcdefghij
-        abcde
+        	abcde
 		//abcdefghij为手动输入
 		
     5.ignore //丢弃流中指定位置的字符
