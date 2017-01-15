@@ -1,72 +1,116 @@
 文件分类：
-    文本文件：由若干字符构成的计算机文件，编码可以是ASCII,UNICODE,GBK等，可用文本编辑器编辑。
-    二进制文件：除了文本文件外的其他文件，如声音,动画,图像,视频等。
+	文本文件：由若干字符构成的计算机文件，编码可以是ASCII,UNICODE,GBK等，可用文本编辑器编辑。
+	二进制文件：除了文本文件外的其他文件，如声音,动画,图像,视频等。
 
 
 文件流类：
-    读文件：ifstream //读取文件中的数据显示在屏幕上，派生自istream
-    写文件：ofstream //将数据写入文件，派生自ostream
-    读写文件：fstream //操作文件时包含需此头文件
+	读文件：ifstream //读取文件中的数据，派生自istream
+    	写文件：ofstream //将数据写入文件，派生自ostream
+    	读写文件：fstream //操作文件时包含需此头文件
     
     
 文件操作基本步骤：
-    1.定义一个文件流对象
-    2.打开文件
-    3.读文件/写文件
-    4.关闭文件
+	1.定义一个文件流对象
+    	2.打开文件
+    	3.读文件/写文件
+    	4.关闭文件
     
-    1.定义文件流类对象
-        1.1用于读文件
-            如：ifstream read_file; //定义读文件对象read_file
-        1.2用于写文件
-            如：ofstream write_file; //定义写文件对象write_file
-    2.打开文件 //每打开一个文件都有一个文件指针，开始位置由打开方式指定。
-        2.1用文件流类的成员函数open打开
-            void open(文件路径, 打开模式)
-            如例：
-            #include<iostream>
-            #include<fstream> //包含头文件fstream
-            using namespace std;
-            int main()
-            {
-                ifstream read_file; //只用于读文件
-                read_file.open("未命名1.txt", ios::in); //在默认目录打开；这里ios::in可省略，因为定义的read_file是读文件对象
-                if(!read_file) //判断文件打开是否成功
-                {
-                    cout<<"打开文件失败"<<endl;
-                    return 1;
-                }
-                return 0;
-            }
-        2.2用文件流类的构造函数打开
-            如：ifstream read_file(文件路径, 打开模式)
-            如例：
-            #include<fstream> //包含头文件fstream
-            using namespace std;
-            int main()
-            {
-	            fstream read_file("C:\\Users\\Administrator\\Desktop\\未命名1.txt", ios::out|ios::binary); 
-                //这里ios::out不可省略
-                return 0;
-            }
-        文件路径：文件所在目录(如d:\\c++\\file.txt)，默认为当前目录，若该文件不存在则创建一个文件。 
+    	1.定义文件流类对象
+        	1.1用于读文件
+            	如：ifstream read_file; //定义读文件对象read_file
+        	1.2用于写文件
+            	如：ofstream write_file; //定义写文件对象write_file
+    	2.打开文件 //每打开一个文件都有一个文件指针，开始位置由打开方式指定。
+        	2.1用文件流类的成员函数open打开
+            	void open(文件路径, 打开模式)
+            	如例：
+            	#include<iostream>
+            	#include<fstream> //包含头文件fstream
+            	using namespace std;
+            	int main()
+            	{
+                	ifstream read_file; //只用于读文件
+                	read_file.open("未命名1.txt", ios::in); //在默认目录打开；这里ios::in可省略，因为定义的read_file是读文件对象
+                	if(!read_file) //判断文件打开是否成功
+                	{
+                    		cout<<"打开文件失败"<<endl;
+                    		return 1;
+                	}
+                	return 0;
+            	}
+        	2.2用文件流类的构造函数打开
+            	如：ifstream read_file(文件路径, 打开模式)
+            	如例：
+            	#include<fstream> //包含头文件fstream
+            	using namespace std;
+		int main()
+            	{
+	        	fstream read_file("C:\\Users\\Administrator\\Desktop\\未命名1.txt", ios::out|ios::binary); 
+                	//这里ios::out不可省略
+                	return 0;
+            	}
+	文件路径：文件所在目录(如d:\\c++\\file.txt)，默认为当前目录，若该文件不存在则创建一个文件。 
                  //这里使用双斜杠\\是因为第一个\为转义字符。
         打开模式：//多个模式以"|"隔开
-            ios::in //为输入(读)而打开文件
-            ios::out //为输出(写)而打开文件
-            ios::ate //打开文件指针在文件尾部
-            ios::app //输出的数据附加在文件末尾
-            ios::trunc //若文件已存在则先删除全部数据
-            ios::binary //二进制方式打开文件
+            	ios::in //为输入(读)而打开文件
+           	ios::out //为输出(写)而打开文件
+            	ios::ate //打开文件指针在文件尾部
+            	ios::app //输出的数据附加在文件末尾
+            	ios::trunc //若文件已存在则先删除全部数据
+            	ios::binary //二进制方式打开文件
     
-    3.文件的读写
-        3.1文本文件读写 //可用IO类函数操作，如读：>>,get,getline等；写：<<,put等
-                    
-    
-    4.关闭文件
-        步骤：若无关文件代码，系统会先将缓冲区数据写入文件，添加结束标志，切断流对象与外部文件的连接。
-        当一个流对象的生存期结束，系统也会自动关闭文件。
-        若流对象生存期未结束，用close()关闭文件，流对象可以重新使用。      
+    	3.文件的读写
+        	3.1文本文件读写 //可用IO类函数操作，如读：>>,get,getline等；写：<<,put等
+                如例：
+		#include<iostream>
+		#include<fstream> //包含头文件fstream
+		using namespace std;
+		int main()
+		{
+			//写文件 
+			fstream write_file; //定义文件流对象 
+			write_file.open("未命名2.txt", ios::out); //打开文件 
+			if(!write_file) //判断文件打开是否成功
+    			{
+    				cout<<"打开文件失败"<<endl;
+   				return 1;
+   			}
+    			//写 
+   			write_file<<"Bu wen"<<endl;
+			char ch[]="Mo wang"; 
+			for(int i=0; ch[i]!=0; i++)
+			{
+				write_file.put(ch[i]);
+			} 
+			write_file.close(); //关闭
+	 
+			//读文件
+			ifstream read_file("未命名2.txt"); //打开
+			if(!read_file)
+			{
+				cout<<"打开文件失败2"<<endl;
+				return 2; 
+			} 
+			//读
+			char cha;
+			for(int i=0; read_file!=EOF; i++) 
+			{
+				read_file.get(cha); //逐字符读取				
+				if(read_file) cout<<cha; //用if为了不输出最后一次非正常读到的数据 
+	
+			} 
+			read_file.close(); //关闭 
+	
+    			return 0;
+		}
+    		程序运行显示：
+		Bu wen
+		Mo wang
+		
+    	4.关闭文件
+        	步骤：若无关文件代码，系统会先将缓冲区数据写入文件，添加结束标志，切断流对象与外部文件的连接。
+        	当一个流对象的生存期结束，系统也会自动关闭文件。
+        	若流对象生存期未结束，用close()关闭文件，流对象可以重新使用。      
         
         
     
