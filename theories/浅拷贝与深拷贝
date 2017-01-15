@@ -30,10 +30,10 @@ class CA
 };
 int main()
 {
-    CA A("Hello!");
-    CA B=A; //调用拷贝构造函数
-    B.Show();
-    return 0;
+    	CA A("Hello!");
+   	CA B=A; //调用拷贝构造函数
+  	B.Show();
+  	return 0;
 }
 结果，程序运行错误。
 此时实现的是浅拷贝。即只将被拷贝对象成员的指针拷贝给拷贝对象成员，共用同一地址。若不需要申请内存，则浅拷贝也可使用。
@@ -52,31 +52,31 @@ class CA
 	public:
   	 	CA(char* cstr)
   	 	{
-      		 str=new char[10]; //被拷贝对象str申请动态内存空间 
-      	 	 strcpy(str,cstr); 
+      		 	str=new char[10]; //被拷贝对象str申请动态内存空间 
+      	 		strcpy(str,cstr); 
    		}
    		CA(const CA &C) //深拷贝 
-    	{
-    		 str=new char[10]; //为拷贝对象成员str申请动态内存空间 
-    		 strcpy(str,C.str);
+    		{
+    		 	str=new char[10]; //为拷贝对象成员str申请动态内存空间 
+    		 	strcpy(str,C.str);
    		}
    		void Show()
-    	{
-        	 cout<<str<<endl;
-    	}
+    		{
+        	 	cout<<str<<endl;
+    		}
    		~CA()
-    	{
-    		 cout<<"destruct class"<<endl;
-        	 delete str;
-    	}
+    		{
+    		 	cout<<"destruct class"<<endl;
+        	 	delete str;
+    		}
 };
 
 int main()
 {
-    CA A("Hello!");
-    CA B=A; //调用拷贝构造函数
-    B.Show();
-    return 0;
+    	CA A("Hello!");
+    	CA B=A; //调用拷贝构造函数
+    	B.Show();
+    	return 0;
 }
 
 结果显示：
