@@ -4,8 +4,8 @@
 
 
 文件流类：
-	读文件：ifstream //读取文件中的数据，派生自istream
-    	写文件：ofstream //将数据写入文件，派生自ostream
+	读文件：ifstream //读取文件中的数据，派生自istream，因此可以使用istream中的函数
+    	写文件：ofstream //将数据写入文件，派生自ostream，因此可以使用istream中的函数
     	读写文件：fstream //操作文件时包含需此头文件
     
     
