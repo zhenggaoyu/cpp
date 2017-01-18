@@ -110,7 +110,82 @@
 			当没有读到文件尾部时，ifstream的对象相当于一个true值，直至所有数据读取完成后，该值仍为true，
 			到在读取一次后，该值才为false，因此会重复读入最后一个数据。			
 			解决办法是：使用if判断，使不输出最后一次读取的数据。*/           	
-    	
+    		
+		3.2二进制文件的读写 //主要使用io类的成员函数read,write
+		函数原型：
+			istream &read(char *"文件地址", int 需读入的字节数)
+			ostream &write(const char *"文件地址", int 需读入的字节数)
+		如例：
+		#include<iostream>
+		#include<string.h>
+		#include<fstream>
+		using namespace std;
+		//定义一个学生类用于储存学生信息 
+		class Student
+		{
+			private:
+				char name[10];
+				int math;
+				int English;
+				int physics;
+				float avg;
+			public:
+				Student(){}
+				Student(char *n, int m, int e, int p)
+				{
+					strcpy(name, n);
+					math = m;
+					English = e;
+					physics = p; 
+				}
+				void Showme()
+				{
+					cout<<name<<" "<<math<<" "<<English<<" "<<physics<<endl;
+				}
+		}; 
+
+		int main()
+		{
+			//附初值 
+			Student stu1("张三", 87, 66, 89);
+			Student stu2("李四", 98, 79, 77);
+			Student stu3("王五", 89, 92, 89);
+			//定义文件并将学生类的信息写入文件 
+			fstream stu_out("file.dat", ios::out|ios::binary); //储存为二进制文件(.dat为二进制文件后缀) 
+			if(!stu_out)
+			{
+				cout<<"文件打开失败"<<endl;
+				return 1;
+			}
+			stu_out.write((char*)&stu1, sizeof(stu1));
+			stu_out.write((char*)&stu2, sizeof(stu2));
+			stu_out.write((char*)&stu3, sizeof(stu3));
+			stu_out.close();
+			//读文件并显示于屏幕
+			fstream stu_in("file.dat", ios::in|ios::binary);
+			Student stu;
+			if(!stu_in)
+			{
+				cout<<"文件打开失败"<<endl;
+				return 1;
+			} 
+			while(stu_in)
+			{
+				stu_in.read((char*)&stu, sizeof(stu)); 
+				if(stu_in) 
+				{
+					stu.Showme();
+				}
+			}		 
+			stu_in.close();
+		
+			return 0;
+		}
+		程序运行显示：
+		张三 87 66 89
+		李四 98 79 77
+		王五 89 92 89
+		
 	4.关闭文件
         	步骤：若无关文件代码，系统会先将缓冲区数据写入文件，添加结束标志，切断流对象与外部文件的连接。
         	当一个流对象的生存期结束，系统也会自动关闭文件。
