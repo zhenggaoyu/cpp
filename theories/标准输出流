@@ -5,7 +5,7 @@
     1.<< //流插入运算符，符号重载，并输出数据
     
     2.put //插入一个字符
-        cout.put(char 需插入的字符)
+        ostream &put(char 需插入的字符)
         如例：
         #include<iostream>
         using namespace std;
@@ -19,7 +19,7 @@
         a
         
     3.write //插入一串字符 
-        cout.write(char 字符指针, int 字符数)
+        ostream &write(char 字符指针, int 字符数)
         如例：
         #include<iostream>
         using namespace std;
@@ -33,8 +33,12 @@
         ab
     4.flush //刷新输出流
     5.seekp //移动输出流指针
-    6.tellp //返回输出流中指定位置指针值
-    
+    	ostream &seekp(streampos pos) //pos:文件流指针位置值，直接指定指针的位置
+	ostream &seekp(streamoff off, ios::seek_dir dir) 
+	//off:需偏移指针位置的值；dir:搜索的起始位置，有三个值ios::beg(文件流的起始位置),ios::cur(文件流的当前位置),ios::end(文件流的结束位置)
+    6.tellp //返回输出流中指定位置指针值，也代表输出流的大小
+    	ostream &tellp() //无参
+	
     控制输出格式： 
     A.以流对象的成员函数控制输出格式
     7.setf //设置状态标志
