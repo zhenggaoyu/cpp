@@ -1,6 +1,6 @@
 标准输出流：
     指从程序流向标准输出设备(显示器)的数据集合。标准输出流类：ostream(输入),iostream(包括输入输出)。
-    使用的对象：cout, cerr, clog（cerr, clog为标准错误输出流对象，可用于输出错误信息）
+    使用的对象：通常cout, cerr, clog（cerr, clog为标准错误输出流对象，可用于输出错误信息）
     使用的函数：
     1.<< //流插入运算符，符号重载，并输出数据
     
@@ -33,7 +33,7 @@
         ab
     4.flush //刷新输出流
     5.seekp //移动输出流指针
-    	ostream &seekp(streampos pos) //pos:文件流指针位置值，直接指定指针的位置
+    	ostream &seekp(streampos pos) //pos:指定指针的位置值	
 	ostream &seekp(streamoff off, ios::seek_dir dir) 
 	//off:需偏移指针位置的值；dir:搜索的起始位置，有三个值ios::beg(文件流的起始位置),ios::cur(文件流的当前位置),ios::end(文件流的结束位置)
     6.tellp //返回输出流中指定位置指针值，也代表输出流的大小
