@@ -1,3 +1,45 @@
 类模板：
         类是对问题空间的抽象，而类模板是对类的抽象。是对一批成员数据类型不同的类的抽象。 
+        定义格式：
+        template<class 类型标识符> //class也可写typename
+        class 类名
+        {
+                类体定义
+        };
+        声明类对象时：
+        类名<具体类型>对象名;
         
+        如例：
+        #include<iostream>
+        using namespace std;
+        //定义一个类模板，实现的是多种类型的两个数据间的最大值 
+        template<class T> 
+        class Compare
+        {
+	        T x, y;
+	        public:
+		        Compare(T a, T b)
+		        {
+			        x = a;
+			        y = b;
+		        }
+		        T max()
+		        {
+			        return (x>y)?x:y;
+		        }
+        };
+
+        int main()
+        {
+	        Compare<int> compare_int(1,2); //声明int型对象 
+	        cout<<compare_int.max()<<endl;
+	        Compare<float> compare_float(1.1,1.2); //声明float型对象 
+	        cout<<compare_float.max()<<endl;
+	        Compare<char> compare_char('a', 'b'); //声明char型对象 
+	        cout<<compare_char.max(); 
+	        return 0;
+        }
+        程序运行显示：
+        2
+        1.2
+        b
